@@ -1,11 +1,14 @@
-import { useRouter } from "expo-router"
+import { useRouter, useLocalSearchParams } from "expo-router"
 import { Animated, Pressable, StyleSheet, Text } from "react-native"
 
 type ButtonProps = {
   title: string
+  selectedCategory: string | null
 }
-export default function Button({ title }: ButtonProps) {
+export default function Button({ title, selectedCategory }: ButtonProps) {
   const router = useRouter()
+  const params = useLocalSearchParams()
+  const { category = selectedCategory } = params
   const backgroundColorRef = new Animated.Value(0)
 
   // 2. The handlers
@@ -25,16 +28,14 @@ export default function Button({ title }: ButtonProps) {
   }
 
   const handleNavigate = () => {
-    router.push("/fact") // Navigate to the desired screen
+    router.push({ pathname: "/fact", params: { category } })
   }
 
-  // Interpolate the background color
   const backgroundColor = backgroundColorRef.interpolate({
     inputRange: [0, 1],
     outputRange: ["#008CBA", "#FFF"],
   })
 
-  // Applying the interpolated backgroundColor
   return (
     <Pressable
       onPressIn={handlePress}

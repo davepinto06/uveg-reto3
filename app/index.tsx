@@ -1,8 +1,11 @@
 import { Text, View } from "react-native"
 import Button from "./components/Button"
 import CategoriesGroup from "./components/CategoriesGroup"
+import { useState } from "react"
 
 export default function Index() {
+  const [selectedButton, setSelectedButton] = useState<string | null>(null)
+
   return (
     <View
       style={{
@@ -29,7 +32,7 @@ export default function Index() {
           alignSelf: "stretch",
         }}
       >
-        <Button title="Start!" />
+        <Button title="Start!" selectedCategory={selectedButton} />
       </View>
       <View
         style={{
@@ -40,7 +43,10 @@ export default function Index() {
         }}
       >
         <View style={{ flex: 1, padding: 20 }}>
-          <CategoriesGroup />
+          <CategoriesGroup
+            selectedButton={selectedButton}
+            setSelectedButton={setSelectedButton}
+          />
         </View>
       </View>
     </View>

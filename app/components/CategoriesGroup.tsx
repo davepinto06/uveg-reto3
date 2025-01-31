@@ -2,9 +2,15 @@ import React, { useState } from "react"
 import CategoryButton from "./CategoryButton"
 import { View, StyleSheet } from "react-native"
 
-export default function CategoriesGroup() {
-  const [selectedButton, setSelectedButton] = useState<string | null>(null)
+type CategoriesGroupProps = {
+  selectedButton: string | null
+  setSelectedButton: (value: string | null) => void
+}
 
+export default function CategoriesGroup({
+  selectedButton,
+  setSelectedButton,
+}: CategoriesGroupProps) {
   const handleButtonPress = (title: string) => {
     if (title === selectedButton) {
       return
